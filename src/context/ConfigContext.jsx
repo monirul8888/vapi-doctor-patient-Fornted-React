@@ -3,10 +3,11 @@ import { createContext, useContext, useMemo, useState } from 'react'
 const STORAGE_KEY = 'dubai-hospital-config'
 
 const defaultConfig = {
-  backendUrl: import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:4444',
-  databaseUrl: import.meta.env.VITE_DATABASE_URL || '',
+  backendUrl:
+    import.meta.env.VITE_BACKEND_URL ||
+    (import.meta.env.PROD ? 'https://api.pixelstack.cloud' : 'http://127.0.0.1:8000'),
+
   vapiPublicKey: import.meta.env.VITE_VAPI_PUBLIC_KEY || '',
-  vapiPrivateKey: import.meta.env.VITE_VAPI_PRIVATE_KEY || '',
   vapiAssistantId: import.meta.env.VITE_VAPI_ASSISTANT_ID || ''
 }
 
@@ -15,7 +16,19 @@ const ConfigContext = createContext(null)
 function readStoredConfig() {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY)
-    return raw ? { ...defaultConfig, ...JSON.parse(raw) } : defaultConfig
+    const stored = raw ? JSON.parse(raw) : {}
+
+    return {
+      ...defaultConfig,
+      ...stored,
+
+      // In production, env/backend URL should win over old localStorage value
+      backendUrl: import.meta.env.VITE_BACKEND_URL || stored.backendUrl || defaultConfig.backendUrl,
+
+      // Env values should also win if provided during build
+      vapiPublicKey: import.meta.env.VITE_VAPI_PUBLIC_KEY || stored.vapiPublicKey || '',
+      vapiAssistantId: import.meta.env.VITE_VAPI_ASSISTANT_ID || stored.vapiAssistantId || ''
+    }
   } catch {
     return defaultConfig
   }
@@ -50,8 +63,10 @@ export function ConfigProvider({ children }) {
 
 export function useConfig() {
   const context = useContext(ConfigContext)
+
   if (!context) {
     throw new Error('useConfig must be used inside ConfigProvider')
   }
+
   return context
 }
