@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dubai Hospital — React + Tailwind AI Appointments
 
 A white-based, colorful Vite + React + Tailwind CSS frontend for the Dubai Hospital appointment workflow.
@@ -96,3 +97,7 @@ Example appointment object:
 ## Notes
 
 If your backend runs on another domain or port, enable CORS on the FastAPI backend for your Vite frontend origin.
+=======
+# vapi-doctor-patient-Fornted-React
+Vapi AI-based system for custom management of doctors, patients, appointments, and medical records
+>>>>>>> 8d7ca38091be5e36c087edd878805a9560c8a43f
