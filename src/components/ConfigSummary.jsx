@@ -34,7 +34,7 @@ export default function ConfigSummary() {
 
       <div className="mt-5 rounded-3xl border border-slate-100 bg-slate-50/70 px-4">
         <StatusRow label="Backend" value={config.backendUrl || 'Not set'} tone="blue" />
-        <StatusRow label="Database" value={config.databaseUrl ? 'Set' : 'Not set'} tone={config.databaseUrl ? 'green' : 'amber'} />
+        
         <StatusRow label="Vapi AI" value={vapiReady ? 'Ready' : 'Not configured'} tone={vapiReady ? 'green' : 'amber'} />
       </div>
     </section>

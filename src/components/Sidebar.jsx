@@ -46,21 +46,7 @@ export default function Sidebar() {
               label="Backend URL"
               value={config.backendUrl}
               onChange={(event) => setConfig({ backendUrl: event.target.value })}
-              placeholder="http://127.0.0.1:4444"
             />
-            <TextInput
-              label="Database URL"
-              type="password"
-              value={config.databaseUrl}
-              onChange={(event) => setConfig({ databaseUrl: event.target.value })}
-              placeholder="postgresql://user:pass@host/db"
-              hint="Stored locally in the browser only."
-            />
-
-            <Button variant="secondary" className="w-full" onClick={handleHealthTest} disabled={testing}>
-              {testing ? 'Testing…' : 'Test Backend'}
-            </Button>
-            {testStatus && <Alert type={testStatus.type}>{testStatus.message}</Alert>}
           </div>
         </section>
 
@@ -74,13 +60,7 @@ export default function Sidebar() {
               onChange={(event) => setConfig({ vapiPublicKey: event.target.value })}
               placeholder="vapi_pub_..."
             />
-            <TextInput
-              label="Private Key"
-              type="password"
-              value={config.vapiPrivateKey}
-              onChange={(event) => setConfig({ vapiPrivateKey: event.target.value })}
-              placeholder="vapi_priv_..."
-            />
+         
             <TextInput
               label="Assistant ID"
               value={config.vapiAssistantId}
